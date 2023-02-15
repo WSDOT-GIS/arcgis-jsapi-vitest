@@ -1,4 +1,4 @@
-import config from '@arcgis/core/config';
+// import config from '@arcgis/core/config';
 import Map from '@arcgis/core/Map';
 import MapView from '@arcgis/core/views/MapView';
 import FeatureLayer from '@arcgis/core/layers/FeatureLayer';
@@ -6,7 +6,7 @@ import { initWidgets } from './widgets';
 
 import './style.css';
 
-config.apiKey = import.meta.env.VITE_API_KEY as string;
+// config.apiKey = import.meta.env.VITE_API_KEY as string;
 
 const featureLayer = new FeatureLayer({
   portalItem: {
@@ -24,7 +24,7 @@ featureLayer.when(() => {
 const view = new MapView({
   container: 'viewDiv',
   map: new Map({
-    basemap: 'arcgis-topographic',
+    basemap: 'streets-relief-vector',
     layers: [featureLayer],
   }),
 });
