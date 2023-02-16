@@ -35,9 +35,7 @@ describe('widgets', () => {
       },
     };
 
-    const layer: any = {};
-
-    initWidgets({ view, layer });
+    initWidgets({ view });
     expect(widgets).toHaveLength(2);
   });
 });
