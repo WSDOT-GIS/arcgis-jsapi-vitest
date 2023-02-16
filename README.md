@@ -26,9 +26,7 @@ npm run build
 
 ## API Key
 
-You don't need an API key if you're only using publicly facing services. However, if that is not your use case, here is how you set this up.
-
-You will need to create an [API Key](https://developers.arcgis.com/documentation/mapping-apis-and-services/security/#api-keys) using a free [ArcGIS Developer Account](https://developers.arcgis.com/sign-up/).
+If you use services that are not public and require a token, you will need to create an [API Key](https://developers.arcgis.com/documentation/mapping-apis-and-services/security/#api-keys) using a free [ArcGIS Developer Account](https://developers.arcgis.com/sign-up/).
 
 Add your API Key to a `.env` file at the root of this project.
 
