@@ -1,29 +1,40 @@
 import Map from '@arcgis/core/Map';
 import MapView from '@arcgis/core/views/MapView';
-import { initWidgets } from './widgets';
-
+import Search from '@arcgis/core/widgets/Search';
+import Legend from '@arcgis/core/widgets/Legend';
+import LayerList from '@arcgis/core/widgets/LayerList';
 import './style.css';
-
-// config.apiKey = import.meta.env.VITE_API_KEY as string; // Needed for services requiring authorization
-
-const featureLayer = new FeatureLayer({
-  portalItem: {
-    id: 'b234a118ab6b4c91908a1cf677941702',
-  },
-  outFields: ['NAME', 'STATE_NAME', 'VACANT', 'HSE_UNITS'],
-  title: 'U.S. Counties',
-  opacity: 0.8,
-});
-
-featureLayer.when(() => {
-  view.goTo(featureLayer.fullExtent);
-});
+import { waExtent } from './WAExtent';
 
 const view = new MapView({
   container: 'viewDiv',
+  extent: waExtent,
   map: new Map({
     basemap: 'streets-relief-vector',
-  }),
+  })
 });
 
-view.when(() => initWidgets({ view }));
+new Search({
+  container: 'searchDiv',
+  view,
+  includeDefaultSources: false,
+  sources: [
+    {
+      url: 'https://utility.arcgis.com/usrsvcs/servers/a86fa8aeabdd470792022a8ef959afb6/rest/services/World/GeocodeServer',
+      name: 'ArcGIS World Geocode Service',
+      popupEnabled: true,
+      autoNavigate: true,
+      locationType: 'street',
+      countryCode: "US",
+      resultGraphicEnabled: true,
+      suggestionsEnabled: true
+    } as __esri.LocatorSearchSourceProperties,
+  ],
+});
+
+
+const legend = new Legend({ view });
+const layerList = new LayerList({ view });
+view.ui.add(legend, 'bottom-left');
+view.ui.add(layerList, 'top-right');
+
