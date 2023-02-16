@@ -1,4 +1,4 @@
-// import config from '@arcgis/core/config';
+// import config from '@arcgis/core/config'; // Needed for services requiring authorization
 import Map from '@arcgis/core/Map';
 import MapView from '@arcgis/core/views/MapView';
 import FeatureLayer from '@arcgis/core/layers/FeatureLayer';
@@ -6,7 +6,7 @@ import { initWidgets } from './widgets';
 
 import './style.css';
 
-// config.apiKey = import.meta.env.VITE_API_KEY as string;
+// config.apiKey = import.meta.env.VITE_API_KEY as string; // Needed for services requiring authorization
 
 const featureLayer = new FeatureLayer({
   portalItem: {
