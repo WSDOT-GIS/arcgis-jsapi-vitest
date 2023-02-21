@@ -32,14 +32,18 @@
 			"detail": "Runs Vite in watch mode"
 		},
 		{
-			"type": "process",
 			"label": "Watch: Typescript & Vite",
 			"detail": "Runs both Typescript and Vite in watch mode",
+			"icon": {
+				"id": "eye-watch",
+				"color": "terminal.ansiGreen"
+			},
 			"dependsOn": [
 				"Typescript Watch",
 				"vite watch"
 			],
-			"dependsOrder": "parallel"
+			"dependsOrder": "parallel",
+			"isBackground": true
 		}
 	]
 }

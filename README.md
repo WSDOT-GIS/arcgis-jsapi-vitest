@@ -35,3 +35,7 @@ VITE_API_KEY=MY-DEVELOPER-API-KEY
 ```
 
 Vite will pick up the API Key for use in your application.
+
+## TO DO
+
+* [ ] Use the CSS directly from @arcgis/core rather than referencing the CDN URL. The core package doesn't export the CSS files in its `package.json` so it may be necessary to create a script to copy the files from there to `src` folder (and these copies would be excluded via .gitignore). This script would be run before the current build process steps.

@@ -1,0 +1,14 @@
+{
+    "recommendations": [
+        "zixuanchen.vitest-explorer",
+        "streetsidesoftware.code-spell-checker",
+        "vivaxy.vscode-conventional-commits",
+        "bierner.github-markdown-preview",
+        "github.vscode-pull-request-github",
+        "bierner.jsdoc-markdown-highlighting",
+        "74th.json-yaml-schema-selector",
+        "bierner.markdown-checkbox",
+        "bierner.markdown-emoji",
+        "esbenp.prettier-vscode"
+    ]
+}
