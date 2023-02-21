@@ -1,18 +1,37 @@
-import Map from '@arcgis/core/Map';
+import EsriMap from '@arcgis/core/Map';
 import MapView from '@arcgis/core/views/MapView';
 import Search from '@arcgis/core/widgets/Search';
 import Legend from '@arcgis/core/widgets/Legend';
 import LayerList from '@arcgis/core/widgets/LayerList';
+import BasemapGallery from '@arcgis/core/widgets/BasemapGallery'
+import Expand from "@arcgis/core/widgets/Expand";
 import { waExtent } from './WAExtent';
+import { wsdotBasemaps } from './basemaps'
 import './style.css';
+
+
+const map = new EsriMap({
+  basemap: wsdotBasemaps[0],
+  ground: "world-elevation",
+});
 
 const view = new MapView({
   container: 'viewDiv',
   extent: waExtent,
-  map: new Map({
-    basemap: 'streets-relief-vector',
-  }),
+  map,
 });
+
+const basemapGallery = new BasemapGallery({
+  source: wsdotBasemaps,
+  view,
+  activeBasemap: map.basemap
+});
+
+const basemapExpand = new Expand({
+  content: basemapGallery,
+  view
+});
+
 
 new Search({
   container: 'searchDiv',
@@ -38,5 +57,8 @@ new Search({
 
 const legend = new Legend({ view });
 const layerList = new LayerList({ view });
+const layerListExpand = new Expand({
+  content: layerList
+});
 view.ui.add(legend, 'bottom-left');
-view.ui.add(layerList, 'top-right');
+view.ui.add([layerListExpand, basemapExpand], 'top-right');
