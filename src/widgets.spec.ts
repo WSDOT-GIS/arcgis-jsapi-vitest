@@ -27,15 +27,15 @@ describe('widgets', () => {
   it('initializes widgets in view', () => {
     const widgets: unknown[] = [];
 
-    const view: any = {
+    const view = {
       ui: {
         add(w: unknown) {
           widgets.push(w);
         },
       },
-    };
+    } as __esri.MapView;
 
-    const layer: any = {};
+    const layer = {} as __esri.FeatureLayer;
 
     initWidgets({ view, layer });
     expect(widgets).toHaveLength(2);
