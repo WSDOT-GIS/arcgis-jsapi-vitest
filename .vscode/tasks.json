@@ -43,7 +43,8 @@
 				"vite watch"
 			],
 			"dependsOrder": "parallel",
-			"isBackground": true
+			"isBackground": true,
+			"problemMatcher": []
 		}
 	]
 }

@@ -3,16 +3,17 @@ import MapView from '@arcgis/core/views/MapView';
 import Search from '@arcgis/core/widgets/Search';
 import Legend from '@arcgis/core/widgets/Legend';
 import LayerList from '@arcgis/core/widgets/LayerList';
-import BasemapGallery from '@arcgis/core/widgets/BasemapGallery'
-import Expand from "@arcgis/core/widgets/Expand";
+import BasemapGallery from '@arcgis/core/widgets/BasemapGallery';
+import Expand from '@arcgis/core/widgets/Expand';
 import { waExtent } from './WAExtent';
-import { wsdotBasemaps } from './basemaps'
+import { wsdotBasemaps } from './basemaps';
+import { politcalAdminBoundariesLayer } from './layers';
 import './style.css';
-
 
 const map = new EsriMap({
   basemap: wsdotBasemaps[0],
-  ground: "world-elevation",
+  layers: [politcalAdminBoundariesLayer],
+  ground: 'world-elevation',
 });
 
 const view = new MapView({
@@ -24,14 +25,13 @@ const view = new MapView({
 const basemapGallery = new BasemapGallery({
   source: wsdotBasemaps,
   view,
-  activeBasemap: map.basemap
+  activeBasemap: map.basemap,
 });
 
 const basemapExpand = new Expand({
   content: basemapGallery,
-  view
+  view,
 });
-
 
 new Search({
   container: 'searchDiv',
@@ -58,7 +58,7 @@ new Search({
 const legend = new Legend({ view });
 const layerList = new LayerList({ view });
 const layerListExpand = new Expand({
-  content: layerList
+  content: layerList,
 });
 view.ui.add(legend, 'bottom-left');
 view.ui.add([layerListExpand, basemapExpand], 'top-right');
