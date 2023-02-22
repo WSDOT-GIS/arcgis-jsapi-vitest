@@ -44,7 +44,7 @@
     "vitest": "^0.28.5"
   },
   "dependencies": {
-    "@arcgis/core": "~4.25.5"
+    "@arcgis/core": "~4.26.0"
   },
   "arcgis": {
     "type": "vite"
