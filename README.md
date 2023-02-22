@@ -2,7 +2,7 @@
 
 ## Usage
 
-This application is written in [TypeScript](http://www.typescriptlang.org/) and utilizes the [`vite`](https://vitejs.dev/).
+This application is written in [TypeScript](http://www.typescriptlang.org/) and utilizes [`vite`](https://vitejs.dev/).
 
 You can develop, test, and build the application using various commands.
 
