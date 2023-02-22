@@ -6,26 +6,12 @@
     "prepare": "husky install",
     "start": "vite",
     "copy-css": "node ./tools/copy-css.js",
-    "build": "npm copy-css && tsc && vite build",
+    "build": "npm run copy-css && tsc && vite build",
     "serve": "vite preview",
     "prettier": "prettier --write \"src/**/*.ts?(x)\"",
     "lint": "eslint . --ext .js,.ts,.tsx --fix",
     "test": "vitest run",
-    "coverage": "vitest run --coverage",
-    "precommit": "npm test && npm run prettier && lint-staged"
-  },
-  "prettier": {
-    "semi": true,
-    "singleQuote": true,
-    "trailingComma": "all",
-    "printWidth": 120,
-    "tabWidth": 2
-  },
-  "lint-staged": {
-    "*.{ts,tsx}": [
-      "prettier --write",
-      "eslint --fix"
-    ]
+    "coverage": "vitest run --coverage"
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.1",
