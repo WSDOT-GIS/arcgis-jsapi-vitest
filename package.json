@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "prepare": "husky install",
     "start": "vite",
     "copy-css": "node ./tools/copy-css.js",
     "build": "npm copy-css && tsc && vite build",
@@ -11,7 +12,7 @@
     "lint": "eslint . --ext .js,.ts,.tsx --fix",
     "test": "vitest run",
     "coverage": "vitest run --coverage",
-    "precommit": "lint-staged"
+    "precommit": "npm test && npm run prettier && lint-staged"
   },
   "prettier": {
     "semi": true,
