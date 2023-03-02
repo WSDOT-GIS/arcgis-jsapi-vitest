@@ -1,8 +1,10 @@
 {
-  "name": "jsapi-cli-vitest",
+  "name": "arcgis-jsapi-vitest",
   "version": "0.0.0",
+  "description": "An ArcGIS Maps SDK for JavaScript application that is written in TypeScript and utilizes Vite. Can be used as a starting point for your own applications.",
+  "browser": "dist/index.html",
+  "license": "Unlicense",
   "type": "module",
-  "browser": "index.html",
   "scripts": {
     "prepare": "husky install",
     "start": "vite",
@@ -12,10 +14,13 @@
     "prettier": "prettier --write \"src/**/*.ts?(x)\"",
     "lint": "eslint . --ext .js,.ts,.tsx --fix",
     "test": "vitest run --passWithNoTests --browser",
-    "coverage": "vitest run --coverage"
+    "coverage": "vitest run --coverage",
+    "predeploy": "npm run build",
+    "deploy": "node ./tools/publish.js"
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.1",
+    "@types/gh-pages": "^3.2.1",
     "@typescript-eslint/eslint-plugin": "^5.53.0",
     "@typescript-eslint/parser": "^5.53.0",
     "@vitest/browser": "^0.29.2",
@@ -24,6 +29,7 @@
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-prettier": "^4.2.1",
     "fs-extra": "^11.1.0",
+    "gh-pages": "^5.0.0",
     "husky": "^8.0.3",
     "lint-staged": "^13.1.2",
     "prettier": "^2.8.4",
@@ -38,4 +44,5 @@
   "arcgis": {
     "type": "vite"
   }
+
 }

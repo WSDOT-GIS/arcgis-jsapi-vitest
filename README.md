@@ -1,8 +1,8 @@
-# ArcGIS API for JavaScript Template Application
+# ArcGIS Maps SDK for JavaScript Template Application
 
 ## Usage
 
-This [ArcGIS API for JavaScript] application is written in [TypeScript] and utilizes [Vite].
+This [ArcGIS Maps SDK for JavaScript] application is written in [TypeScript] and utilizes [Vite].
 
 You can develop, test, and build the application using various commands.
 
@@ -32,7 +32,7 @@ npm run build
 
 ## Tools and projects used
 
-* [ArcGIS API for JavaScript]
+* [ArcGIS Maps SDK for JavaScript]
 * [Calcite Design System][Calcite]
 
 ### Build
@@ -98,7 +98,7 @@ If you use services that are not public and require a token, you will need to cr
 
 Vite will pick up the API Key for use in your application.
 
-[ArcGIS API for JavaScript]:https://developers.arcgis.com/javascript/
+[ArcGIS Maps SDK for JavaScript]:https://developers.arcgis.com/javascript/
 [TypeScript]:http://www.typescriptlang.org/
 [Vite]:https://vitejs.dev/
 [PWA Vite Plugin]:https://vite-pwa-org.netlify.app/
