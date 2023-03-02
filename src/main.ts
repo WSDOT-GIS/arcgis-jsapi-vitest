@@ -1,14 +1,15 @@
 import EsriMap from '@arcgis/core/Map';
 import MapView from '@arcgis/core/views/MapView';
-import Search from '@arcgis/core/widgets/Search';
-import Legend from '@arcgis/core/widgets/Legend';
-import LayerList from '@arcgis/core/widgets/LayerList';
 import BasemapGallery from '@arcgis/core/widgets/BasemapGallery';
 import Expand from '@arcgis/core/widgets/Expand';
-import { waExtent } from './WAExtent';
+import LayerList from '@arcgis/core/widgets/LayerList';
+import Legend from '@arcgis/core/widgets/Legend';
+import Search from '@arcgis/core/widgets/Search';
 import { wsdotBasemaps } from './basemaps';
 import { politcalAdminBoundariesLayer } from './layers';
+import { setupLoadingIndicator } from './LoadingIndicator';
 import './style.css';
+import { waExtent } from './WAExtent';
 
 const map = new EsriMap({
   basemap: wsdotBasemaps[0],
@@ -21,6 +22,8 @@ const view = new MapView({
   extent: waExtent,
   map,
 });
+
+setupLoadingIndicator(view);
 
 const basemapGallery = new BasemapGallery({
   source: wsdotBasemaps,
