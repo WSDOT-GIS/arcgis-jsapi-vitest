@@ -1,2 +1,6 @@
 # Custom Dictionary Words
 jsapi
+xmin
+xmax
+ymin
+ymax
