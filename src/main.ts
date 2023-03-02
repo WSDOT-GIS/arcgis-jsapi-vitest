@@ -1,67 +1,90 @@
-import EsriMap from '@arcgis/core/Map';
-import MapView from '@arcgis/core/views/MapView';
-import BasemapGallery from '@arcgis/core/widgets/BasemapGallery';
-import Expand from '@arcgis/core/widgets/Expand';
-import LayerList from '@arcgis/core/widgets/LayerList';
-import Legend from '@arcgis/core/widgets/Legend';
-import Search from '@arcgis/core/widgets/Search';
-import { wsdotBasemaps } from './basemaps';
-import { politcalAdminBoundariesLayer } from './layers';
-import { setupLoadingIndicator } from './LoadingIndicator';
 import './style.css';
-import { waExtent } from './WAExtent';
 
-const map = new EsriMap({
-  basemap: wsdotBasemaps[0],
-  layers: [politcalAdminBoundariesLayer],
-  ground: 'world-elevation',
-});
+Promise.all([
+  import('@arcgis/core/Map'),
+  import('@arcgis/core/views/MapView'),
+  import('./LoadingIndicator'),
+  import('./WAExtent'),
+  import('./basemaps'),
+  import('./layers'),
+]).then(
+  ([
+    { default: EsriMap },
+    { default: MapView },
+    { setupLoadingIndicator },
+    { waExtent },
+    { wsdotBasemaps },
+    { politcalAdminBoundariesLayer },
+  ]) => {
+    const map = new EsriMap({
+      basemap: wsdotBasemaps[0],
+      layers: [politcalAdminBoundariesLayer],
+      ground: 'world-elevation',
+    });
 
-const view = new MapView({
-  container: 'viewDiv',
-  extent: waExtent,
-  map,
-});
+    const view = new MapView({
+      container: 'viewDiv',
+      extent: waExtent,
+      map,
+    });
 
-setupLoadingIndicator(view);
+    setupLoadingIndicator(view);
 
-const basemapGallery = new BasemapGallery({
-  source: wsdotBasemaps,
-  view,
-  activeBasemap: map.basemap,
-});
+    view.when(async () => {
+      const { default: Expand } = await import('@arcgis/core/widgets/Expand');
 
-const basemapExpand = new Expand({
-  content: basemapGallery,
-  view,
-});
+      import('@arcgis/core/widgets/BasemapGallery').then(({ default: BasemapGallery }) => {
+        const basemapGallery = new BasemapGallery({
+          source: wsdotBasemaps,
+          view,
+          activeBasemap: map.basemap,
+        });
+        const basemapExpand = new Expand({
+          content: basemapGallery,
+          view,
+        });
+        view.ui.add(basemapExpand, {
+          index: 1,
+          position: 'top-trailing',
+        });
+      });
 
-new Search({
-  container: 'searchDiv',
-  view,
-  includeDefaultSources: false,
-  sources: [
-    {
-      // Use the WSDOT Customized view of the Geocoder
-      url: 'https://utility.arcgis.com/usrsvcs/servers/a86fa8aeabdd470792022a8ef959afb6/rest/services/World/GeocodeServer',
-      name: 'ArcGIS World Geocode Service',
-      locationType: 'street',
-      // Probably don't need to specify US since an extent is already specified in the view
-      // that the URL points to, but shouldn't harm anything.
-      countryCode: 'US',
-      suggestionsEnabled: true,
-      // Show a graphic for the location, zoom to it, and open its popup.
-      popupEnabled: true,
-      autoNavigate: true,
-      resultGraphicEnabled: true,
-    } as __esri.LocatorSearchSourceProperties,
-  ],
-});
+      import('@arcgis/core/widgets/Search').then(({ default: Search }) => {
+        new Search({
+          container: 'searchDiv',
+          view,
+          includeDefaultSources: false,
+          sources: [
+            {
+              // Use the WSDOT Customized view of the Geocoder
+              url: 'https://utility.arcgis.com/usrsvcs/servers/a86fa8aeabdd470792022a8ef959afb6/rest/services/World/GeocodeServer',
+              name: 'ArcGIS World Geocode Service',
+              locationType: 'street',
+              // Probably don't need to specify US since an extent is already specified in the view
+              // that the URL points to, but shouldn't harm anything.
+              countryCode: 'US',
+              suggestionsEnabled: true,
+              // Show a graphic for the location, zoom to it, and open its popup.
+              popupEnabled: true,
+              autoNavigate: true,
+              resultGraphicEnabled: true,
+            } as __esri.LocatorSearchSourceProperties,
+          ],
+        });
+      });
 
-const legend = new Legend({ view });
-const layerList = new LayerList({ view });
-const layerListExpand = new Expand({
-  content: layerList,
-});
-view.ui.add(legend, 'bottom-left');
-view.ui.add([layerListExpand, basemapExpand], 'top-right');
+      import('@arcgis/core/widgets/Legend').then(({ default: Legend }) => {
+        const legend = new Legend({ view });
+        view.ui.add(legend, 'bottom-left');
+      });
+
+      import('@arcgis/core/widgets/LayerList').then(({ default: LayerList }) => {
+        const layerList = new LayerList({ view });
+        const layerListExpand = new Expand({
+          content: layerList,
+        });
+        view.ui.add([layerListExpand], { position: 'top-right', index: 0 });
+      });
+    });
+  },
+);
