@@ -1,0 +1,5 @@
+import{S as t,d as m}from"./scrim-f71cd89d.js";import"./jsxFactory-9e4b8e7b.js";import"./Accessor-815cb0cf.js";import"./typedArrayUtil-74bbfd45.js";import"./watch-c7facfb0.js";import"./ArrayPool-ae2ef0ab.js";import"./string-75082bc6.js";import"./nextTick-3ee5a785.js";import"./promiseUtils-28f2a985.js";import"./Error-781981d1.js";import"./ensureType-125d327f.js";import"./intl-71e7974a.js";import"./number-5e819186.js";import"./cast-f7d2a22f.js";import"./locale-30120714.js";import"./messages-dc0c80a1.js";import"./request-6e1d5843.js";import"./preload-helper-fb43855a.js";import"./assets-7bd3ffcf.js";import"./Evented-3dfb26f2.js";import"./Promise-092442f7.js";import"./reactiveUtils-31da19f9.js";import"./uuid-73213768.js";import"./t9n-155c460a.js";import"./observers-90a6df09.js";import"./loader-839a9276.js";import"./guid-51402ee7.js";/*!
+ * All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+ * See https://github.com/Esri/calcite-components/blob/master/LICENSE.md for details.
+ * v1.0.7
+ */const z=t,A=m;export{z as CalciteScrim,A as defineCustomElement};
