@@ -1,0 +1,1 @@
+import{$ as r,v as o}from"./Extent-fd3ac910.js";const c=96;function p(e,t){const n=t||e.extent,i=e.width,d=r(n&&n.spatialReference);return n&&i?n.width/i*d*o*c:0}function a(e,t){return e/(r(t)*o*c)}function s(e,t){const n=e.extent,i=e.width-(e.padding?e.padding.left+e.padding.right:0),d=a(t,n.spatialReference);return n.clone().expand(d*i/n.width)}export{s as d,p as i,a as r};

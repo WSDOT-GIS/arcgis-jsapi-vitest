@@ -1,1 +1,0 @@
-import{f as s,h as r,i as t,j as w,A as c,P as i,E as a,l as m}from"./Extent-8fae2379.js";const E=new s(r),f=new s(t),o=new s(w);new s(c);function p(n){return n&&(i(n)||a(n,f))?f:n&&(m(n)||a(n,o))?o:E}export{p as c};
