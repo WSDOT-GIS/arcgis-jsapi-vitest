@@ -1,1 +1,0 @@
-import{f as s,j as r,l as t,m,A as w,P as c,E as a,s as E}from"./Extent-fd3ac910.js";const i=new s(r),f=new s(t),o=new s(m);new s(w);function p(n){return n&&(c(n)||a(n,f))?f:n&&(E(n)||a(n,o))?o:i}export{p as c};
