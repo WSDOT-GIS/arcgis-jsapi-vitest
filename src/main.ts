@@ -30,7 +30,7 @@ Promise.all([
 
     setupLoadingIndicator(view);
 
-    view.when(async () => {
+    async function setupWidgets() {
       const { default: Expand } = await import('@arcgis/core/widgets/Expand');
 
       import('@arcgis/core/widgets/BasemapGallery').then(({ default: BasemapGallery }) => {
@@ -75,7 +75,7 @@ Promise.all([
 
       import('@arcgis/core/widgets/Legend').then(({ default: Legend }) => {
         const legend = new Legend({ view });
-        view.ui.add(legend, 'bottom-left');
+        view.ui.add(legend, 'bottom-leading');
       });
 
       import('@arcgis/core/widgets/LayerList').then(({ default: LayerList }) => {
@@ -83,8 +83,32 @@ Promise.all([
         const layerListExpand = new Expand({
           content: layerList,
         });
-        view.ui.add([layerListExpand], { position: 'top-right', index: 0 });
+        view.ui.add([layerListExpand], { position: 'top-trailing', index: 0 });
       });
-    });
+
+      import('@arcgis/core/widgets/Locate').then(({ default: Locate }) => {
+        const locate = new Locate({
+          view,
+        });
+        view.ui.add(locate, {
+          position: 'top-trailing',
+          index: 2,
+        });
+      });
+
+      import('@arcgis/core/widgets/Home').then(({ default: Home }) => {
+        const home = new Home({
+          view,
+        });
+        view.ui.add(home, {
+          position: 'top-trailing',
+          index: 3,
+        });
+      });
+    }
+
+    // TODO: Ensure widgets are shown in the same order every time.
+
+    view.when(setupWidgets);
   },
 );
