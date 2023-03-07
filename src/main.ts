@@ -52,6 +52,8 @@ Promise.all([
               popupEnabled: true,
               autoNavigate: true,
               resultGraphicEnabled: true,
+              placeholder: 'Find address or place',
+              singleLineFieldName: 'SingleLine',
             } as __esri.LocatorSearchSourceProperties,
           ],
         });
