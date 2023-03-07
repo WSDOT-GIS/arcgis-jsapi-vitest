@@ -33,22 +33,6 @@ Promise.all([
     async function setupWidgets() {
       const { default: Expand } = await import('@arcgis/core/widgets/Expand');
 
-      import('@arcgis/core/widgets/BasemapGallery').then(({ default: BasemapGallery }) => {
-        const basemapGallery = new BasemapGallery({
-          source: wsdotBasemaps,
-          view,
-          activeBasemap: map.basemap,
-        });
-        const basemapExpand = new Expand({
-          content: basemapGallery,
-          view,
-        });
-        view.ui.add(basemapExpand, {
-          index: 1,
-          position: 'top-trailing',
-        });
-      });
-
       import('@arcgis/core/widgets/Search').then(({ default: Search }) => {
         new Search({
           container: 'searchDiv',
@@ -73,41 +57,73 @@ Promise.all([
         });
       });
 
+      // bottom-leading
+
       import('@arcgis/core/widgets/Legend').then(({ default: Legend }) => {
         const legend = new Legend({ view });
         view.ui.add(legend, 'bottom-leading');
       });
 
-      import('@arcgis/core/widgets/LayerList').then(({ default: LayerList }) => {
-        const layerList = new LayerList({ view });
-        const layerListExpand = new Expand({
-          content: layerList,
-        });
-        view.ui.add([layerListExpand], { position: 'top-trailing', index: 0 });
-      });
+      // top-trailing
 
-      import('@arcgis/core/widgets/Locate').then(({ default: Locate }) => {
-        const locate = new Locate({
-          view,
-        });
-        view.ui.add(locate, {
-          position: 'top-trailing',
-          index: 2,
-        });
-      });
+      async function setupTopTrailing() {
+        const basemapGalleryPromise = import('@arcgis/core/widgets/BasemapGallery').then(
+          ({ default: BasemapGallery }) => {
+            const basemapGallery = new BasemapGallery({
+              source: wsdotBasemaps,
+              view,
+              activeBasemap: map.basemap,
+            });
+            const basemapExpand = new Expand({
+              content: basemapGallery,
+              view,
+            });
+            return basemapExpand;
+          },
+        );
 
-      import('@arcgis/core/widgets/Home').then(({ default: Home }) => {
-        const home = new Home({
-          view,
+        const layerListPromise = import('@arcgis/core/widgets/LayerList').then(({ default: LayerList }) => {
+          const layerList = new LayerList({ view });
+          const layerListExpand = new Expand({
+            content: layerList,
+          });
+          return layerListExpand;
         });
-        view.ui.add(home, {
-          position: 'top-trailing',
-          index: 3,
+
+        const locatePromise = import('@arcgis/core/widgets/Locate').then(({ default: Locate }) => {
+          const locate = new Locate({
+            view,
+          });
+          return locate;
         });
-      });
+
+        const homePromise = import('@arcgis/core/widgets/Home').then(({ default: Home }) => {
+          const home = new Home({
+            view,
+          });
+          return home;
+        });
+
+        const widgetPromises = [basemapGalleryPromise, layerListPromise, locatePromise, homePromise];
+
+        const results = (await Promise.allSettled(widgetPromises))
+          .filter((item, index) => {
+            if (item.status === 'rejected') {
+              console.error(`item ${index} failed`, item.reason);
+              return false;
+            }
+            return true;
+          })
+          .map((item) => (item.status === 'fulfilled' ? item.value : null));
+
+        view.ui.add(
+          results.filter((item) => item !== null),
+          'top-trailing',
+        );
+      }
+
+      setupTopTrailing();
     }
-
-    // TODO: Ensure widgets are shown in the same order every time.
 
     view.when(setupWidgets);
   },
