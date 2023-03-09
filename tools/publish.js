@@ -2,22 +2,17 @@
  * Publishes built page to Github Pages.
  */
 
-import { join } from 'node:path';
-import { createFile, exists } from 'fs-extra';
+import { exists } from 'fs-extra';
 import { publish } from 'gh-pages';
 
-const sourceFolder = 'dist';
+const copySourceFolder = 'dist';
 
-if (!(await exists(sourceFolder))) {
-  throw new Error(`File or directory not found: ${sourceFolder}`);
+if (!(await exists(copySourceFolder))) {
+  throw new Error(`File or directory not found: ${copySourceFolder}`);
 }
 
-const noJekyllFilename = join(sourceFolder, '.nojekyll'); // spell:disable-line
-
-await createFile(noJekyllFilename);
-
-console.log(`Publishing contents of "${sourceFolder}" to gh-pages...`);
-publish(sourceFolder, {
+console.log(`Publishing contents of "${copySourceFolder}" to gh-pages...`);
+publish(copySourceFolder, {
     dotfiles: true
 }, (error) => {
   if (error) {
